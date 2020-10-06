@@ -17,12 +17,9 @@ CREATE TABLE Avocado_Prices (
 
 SELECT * FROM Avocado_Prices
 
-DROP TABLE Avocado_Prices
+
 
 copy Avocado_Prices
 from '/tmp/avocado_cleaned.csv'
 delimiter ','
 CSV HEADER;
-
-
-
