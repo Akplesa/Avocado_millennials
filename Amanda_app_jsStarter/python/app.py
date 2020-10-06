@@ -23,16 +23,9 @@ def avocado():
      "Total_bags": q.total_bags, "Small_bags": q.small_bags, "Larg_bags": q.largebags,
       "XLarge_Bags": q.xlarge_bags, "Type": q.type, "Year": q.year,
        "Region": q.region} for q in DataQuery]
-   
-
-#     data= [{"Date": avodate.title(), "Average_price": AveragePrice.title(), "Total_volume":Total_Volume.title(),
-#      "4046": avo4046.title(), "4225": avo4225.title(), "4770": avo4770.title(), 
-#      "Total_bags": Total_Bags.title(), "Small_bags": Small_Bags.title(), "Larg_bags": LargeBags.title(),
-#       "XLarge_Bags": XLarge_Bags.title(), "Type": type.title(), "Year": Year.title(),
-#        "Region": region.title()  }]
+       
     return jsonify(DataListDict)
    
-
-
+   
 if __name__ == '__main__':
     app.run(debug=True)
