@@ -1,105 +1,95 @@
-// Chart Params
-var svgWidth = 960;
-var svgHeight = 500;
+//set chart margins 
+var height = 600 
+var margin = ({top: 20, right: 20, bottom: 30, left: 30})
 
-var margin = { top: 20, right: 40, bottom: 60, left: 50 };
+//pull from the csv 
+d3.csv("hairData.csv").then(function(hairData, err) {
+  if (err) throw err;
 
-var width = svgWidth - margin.left - margin.right;
-var height = svgHeight - margin.top - margin.bottom;
+chart = {
+  const svg = d3.create("svg")
+      .attr("viewBox", [0, 0, width, height])
+      .style("overflow", "visible");
 
-// Create an SVG wrapper, append an SVG group that will hold our chart, and shift the latter by left and top margins.
-var svg = d3
-  .select("body")
-  .append("svg") 
-  .attr("width", svgWidth)
-  .attr("height", svgHeight);
+  svg.append("g")
+      .call(xAxis);
 
-var chartGroup = svg.append("g")
-  .attr("transform", `translate(${margin.left}, ${margin.top})`);
+  svg.append("g")
+      .call(yAxis);
 
-// Import data from an external CSV file
-d3.csv("Data/data-1601595191449.csv").then(function(avoData) {
-  console.log(avoData);
-  console.log([avoData]);
+  const path = svg.append("g")
+      .attr("fill", "none")
+      .attr("stroke", "steelblue")
+      .attr("stroke-width", 1.5)
+      .attr("stroke-linejoin", "round")
+      .attr("stroke-linecap", "round")
+    .selectAll("path")
+    .data(data.series)
+    .join("path")
+      .style("mix-blend-mode", "multiply")
+      .attr("d", d => line(d.values));
 
-  // Create a function to parse date and time
-  var parseTime = d3.timeParse("%Y");
+  svg.call(hover, path);
 
-  // Format the data
-  avoData.forEach(function(data) {
-    data.year = parseTime(data.year);
-    data.total_volume = +data.total_volume;
-    data.averageprice = +data.averageprice;
-  });
+  return svg.node();
+}
 
-  // Create scaling functions
-  var xTimeScale = d3.scaleTime()
-    .domain(d3.extent(avoData, d => d.year))
-    .range([0, width]);
+data = {
+  const data = d3.tsvParse(await FileAttachment("unemployment.tsv").text());
+  const columns = data.columns.slice(1);
+  return {
+    y: "% Unemployment",
+    series: data.map(d => ({
+      name: d.name.replace(/, ([\w-]+).*/, " $1"),
+      values: columns.map(k => +d[k])
+    })),
+    dates: columns.map(d3.utcParse("%Y-%m"))
+  };
+}
 
-  var yLinearScale1 = d3.scaleLinear()
-    .domain([0, d3.max(avoData, d => d.total_volume)])
-    .range([height, 0]);
+function hover(svg, path) {
+  
+  if ("ontouchstart" in document) svg
+      .style("-webkit-tap-highlight-color", "transparent")
+      .on("touchmove", moved)
+      .on("touchstart", entered)
+      .on("touchend", left)
+  else svg
+      .on("mousemove", moved)
+      .on("mouseenter", entered)
+      .on("mouseleave", left);
 
-  var yLinearScale2 = d3.scaleLinear()
-    .domain([0, d3.max(avoData, d => d.averageprice)])
-    .range([height, 0]);
+  const dot = svg.append("g")
+      .attr("display", "none");
 
-  // Create axis functions
-  var bottomAxis = d3.axisBottom(xTimeScale)
-    .tickFormat(d3.timeFormat("%Y"));
-  var leftAxis = d3.axisLeft(yLinearScale1);
-  var rightAxis = d3.axisRight(yLinearScale2);
+  dot.append("circle")
+      .attr("r", 2.5);
 
-  // Add x-axis
-  chartGroup.append("g")
-    .attr("transform", `translate(0, ${height})`)
-    .call(bottomAxis);
+  dot.append("text")
+      .attr("font-family", "sans-serif")
+      .attr("font-size", 10)
+      .attr("text-anchor", "middle")
+      .attr("y", -8);
 
-  // Add y1-axis to the left side of the display
-  chartGroup.append("g")
-    // Define the color of the axis text
-    .classed("green", true)
-    .call(leftAxis);
+  function moved(event) {
+    event.preventDefault();
+    const pointer = d3.pointer(event, this);
+    const xm = x.invert(pointer[0]);
+    const ym = y.invert(pointer[1]);
+    const i = d3.bisectCenter(data.dates, xm);
+    const s = d3.least(data.series, d => Math.abs(d.values[i] - ym));
+    path.attr("stroke", d => d === s ? null : "#ddd").filter(d => d === s).raise();
+    dot.attr("transform", `translate(${x(data.dates[i])},${y(s.values[i])})`);
+    dot.select("text").text(s.name);
+  }
 
-  // Add y2-axis to the right side of the display
-  chartGroup.append("g")
-    // Define the color of the axis text
-    .classed("blue", true)
-    .attr("transform", `translate(${width}, 0)`)
-    .call(rightAxis);
+  function entered() {
+    path.style("mix-blend-mode", null).attr("stroke", "#ddd");
+    dot.attr("display", null);
+  }
 
-  // Line generators for each line
-  var line1 = d3.line()
-    .x(d => xTimeScale(d.date))
-    .y(d => yLinearScale1(d.total_volume));
-
-  var line2 = d3.line()
-    .x(d => xTimeScale(d.date))
-    .y(d => yLinearScale2(d.averageprice));
-
-  // Append a path for line1
-  chartGroup.append("path")
-    .data([avoData])
-    .attr("d", line1)
-    .classed("line green", true);
-
-  // Append a path for line2
-  chartGroup.append("path")
-    .data([avoData])
-    .attr("d", line2)
-    .classed("line blue", true);
-
-  // Append axes titles
-  chartGroup.append("text")
-  .attr("transform", `translate(${width / 2}, ${height + margin.top + 20})`)
-    .classed("dow-text text", true)
-    .text("Total Volume");
-
-  chartGroup.append("text")
-  .attr("transform", `translate(${width / 2}, ${height + margin.top + 37})`)
-    .classed("smurf-text text", true)
-    .text("Average Prica");
-}).catch(function(error) {
-  console.log(error);
-});
+  function left() {
+    path.style("mix-blend-mode", "multiply").attr("stroke", null);
+    dot.attr("display", "none");
+  }
+}
