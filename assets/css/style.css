@@ -58,3 +58,11 @@
 .nav-item {
     color: var(--color5)!important;
 }
+
+.active {
+    font-weight: bold;
+}
+
+img {
+    position: relative;
+}
