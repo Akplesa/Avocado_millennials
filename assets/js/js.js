@@ -1,80 +1,68 @@
+const h = "900px";
+
 function pageChange(value) {
-    const h = "900px";
-    d3.select(".plot img")
-        .remove()
+    d3.select(".plot img").remove();
+    Plotly.purge("plot");
     if (value === "Home") {
-        console.log(1);
-        d3.select(".plot")
-            .append("img")
-            .attr("src", "assets/images/avocado.jpg")
-            .attr("class", "img-fluid")
-            .attr("height", h)
-        d3.select
-    } else if (value === "Comparisons") {
-        console.log(2);
-        d3.select(".plot")
-            .append("img")
-            .attr("src", "assets/images/300px-Buddy_christ.jpg")
-            .attr("class", "img-fluid")
-            .attr("height", h)
-    } else if (value === "Heatmap") {
-        console.log(3);
-        d3.select(".plot")
-            .append("img")
-            .attr("src", "assets/images/ugandan-knuckles.jpg")
-            .attr("class", "img-fluid")
-            .attr("height", h)
+        home();
+    } else if (value === "Scatter") {
+        vis1();
+    } else if (value === "Line") {
+        vis2();        
     } else if (value === "Disabled") {
-        console.log(4);
-        d3.select(".plot")
-            .append("img")
-            .attr("src", "assets/images/Webp.net-resizeimage-27.jpg")
-            .attr("class", "img-fluid")
-            .attr("height", h)
+        vis3();        
+    } else if (value === "Heatmap") {
+        test1();
     }
 };
 
-function chart() {
+function home() {
+    d3.select(".plot")
+        .append("img")
+        .attr("src", "assets/images/avocado.jpg")
+        .attr("class", "img-fluid")
+        .attr("height", h)
+};
+
+function vis1() {
+    d3.select(".plot")
+        .append("img")
+        .attr("src", "assets/images/300px-Buddy_christ.jpg")
+        .attr("class", "img-fluid")
+        .attr("height", h)
 
 };
 
-function heatMap() {
+function vis2() {
+    d3.select(".plot")
+        .append("img")
+        .attr("src", "assets/images/ugandan-knuckles.jpg")
+        .attr("class", "img-fluid")
+        .attr("height", h)
+}
 
+function vis3() {
+    d3.select(".plot")
+        .append("img")
+        .attr("src", "assets/images/Webp.net-resizeimage-27.jpg")
+        .attr("class", "img-fluid")
+        .attr("height", h)
 };
 
+function test1() {
+    var trace1 = {  x: ["beer", "wine", "martini", "margarita", "ice tea", "rum & coke", "mai tai", "gin & tonic"],  y: [22.7, 17.1, 9.9, 8.7, 7.2, 6.1, 6.0, 4.6],  type: "bar"};
+    var data = [trace1];
+    var layout = {  title: "'Bar' Chart"};
+    Plotly.newPlot("plot", data, layout);
 
-
-
-
-
-
-// var svgWidth = 960;
-// var svgHeight = 500;
-
-// var margin = {
-//   top: 20,
-//   right: 40,
-//   bottom: 80,
-//   left: 100
-// };
-
-// var width = svgWidth - margin.left - margin.right;
-// var height = svgHeight - margin.top - margin.bottom;
-
-// var svg = d3
-//     .select(".plot")
-//     .append("svg")
-//     .attr("width", svgWidth)
-//     .attr("height", svgHeight)
-// var visArea = svg.append("g");
+};
 
 // Page Change Listener
 d3.selectAll("a.nav-item.nav-link").on("click", function() {
     var value = d3.select(this).text();
-    console.log(value);
     pageChange(value);  
 });
-
+// Makes the currently selected view 'active' and removes 'active' from others
 $(".navbar-nav .nav-link").on("click", function(){
     $(".navbar-nav").find(".active").removeClass("active");
     $(this).addClass("active");
