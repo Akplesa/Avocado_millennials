@@ -1,4 +1,4 @@
-console.log("Hello");
+// console.log("Hello");
 // // Setting up width and height of chart 
 // var svgWidth = 800;
 // var svgHeight = 500;
@@ -108,17 +108,17 @@ console.log("Hello");
 // Plotly.newPlot("plot", data, layout);
 //  console.log(avocadoData); 
 
-//   // Retrieving data from the json and executing everything below
-// d3.json("http://127.0.0.1:5000/avocadoData").then(function(avocadoData, err) {
-//     if (err) throw err;
-//   console.log(avocadoData);
-//     // Parse data..Converting everything to numbers
-//     avocadoData.forEach(function(data) {
-//       data.PLU4046= +data.PLU4046;
-//       data.PLU4225 = +data.PLU4225;
-//       data.TotalVolume = +data.Total_volume;
-//       console.log(data)
-//     });
-// }).catch(function(error) {
-// console.log(error);
-// });
+  // Retrieving data from the json and executing everything below
+d3.json("/avocadoData").then(function(avocadoData, err) {
+    if (err) throw err;
+  console.log(avocadoData);
+    // Parse data..Converting everything to numbers
+    avocadoData.forEach(function(data) {
+      data.PLU4046= +data.PLU4046;
+      data.PLU4225 = +data.PLU4225;
+      data.TotalVolume = +data.Total_volume;
+      console.log(data)
+    });
+}).catch(function(error) {
+console.log(error);
+});
