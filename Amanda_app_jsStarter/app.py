@@ -26,7 +26,8 @@ def avocado():
        "Region": q.region} for q in DataQuery]
         
     return jsonify(DataListDict)
-   
+    
+
 # @app.route('/dataByRegion')
 # def region():
 #     db.Model.prepare(db.engine, reflect=True)

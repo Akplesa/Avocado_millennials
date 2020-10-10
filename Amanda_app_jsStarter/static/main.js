@@ -1,5 +1,5 @@
-// Setting up width and height of chart 
-var svgWidth = 800;
+// Setting up width and height of chart 800 ans 500
+var svgWidth = 950;
 var svgHeight = 500;
 
 var margin = {
@@ -34,7 +34,7 @@ function xScale(avocadoData, chosenXAxis) {
     var xLinearScale = d3.scaleLinear()
     .domain ([d3.min(avocadoData, d => d[chosenXAxis] * 0.8 ),
     d3.max(avocadoData, d => d[chosenXAxis]) * 1.2])
-    .range([0, width]);
+    .range([0, (width)]);
 
   return xLinearScale;
 
@@ -113,7 +113,7 @@ var xLinearScale = xScale(avocadoData, chosenXAxis);
 
 // Creating y scale function and setting y scale
 var yLinearScale = d3.scaleLinear()
-  .domain([0, d3.max(avocadoData, d => d.Average_price)* 0.8 ])
+  .domain([0, d3.max(avocadoData, d => d.Average_price)* 1.5])
   .range([height, 0]);
 
 
@@ -140,9 +140,9 @@ var circlesGroup = chartGroup.selectAll(".circle-group")
 .append("circle")
 .attr("cx", d => xLinearScale(d[chosenXAxis]))
 .attr("cy", d => yLinearScale(d.Average_price))
-.attr("r", 15)
+.attr("r", 9)
 .attr("fill", "dodgerblue")
-.attr("opacity", ".5");
+.attr("opacity", ".24");
 
 
 
