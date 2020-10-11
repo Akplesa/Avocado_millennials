@@ -1,7 +1,7 @@
 function vis1() {
 
 // Setting up width and height of chart 800 ans 500
-var svgWidth = 815;
+var svgWidth = 750;
 var svgHeight = 500;
 
 var margin = {
@@ -140,10 +140,10 @@ var circlesGroup = chartGroup.selectAll(".circle-group")
 .append("g")
 .classed("circle-group", true)
 .append("circle")
-.attr("cx", d => xLinearScale(d[chosenXAxis])+14)
-.attr("cy", d => yLinearScale(d.Average_price)+14)
+.attr("cx", d => xLinearScale(d[chosenXAxis])+ 20)
+.attr("cy", d => yLinearScale(d.Average_price)+20)
 .attr("r", 9)
-.attr("fill", "dodgerblue")
+.attr("fill", "#9ACD32")
 .attr("opacity", ".24");
 
 
@@ -156,14 +156,17 @@ var PLU4046Label = labelsGroup.append("text")
   .attr("y", 20)
   .attr("value", "PLU4046") // value to grab for event listener
   .classed("active", true)
-  .text("Small/Medium Avocado");
+  .text("Small/Medium Avocado")
+  .attr("fill", "#9ACD32");
+  
 
 var PLU4225Lable = labelsGroup.append("text")
   .attr("x", 0)
   .attr("y", 40)
   .attr("value", "PLU4225") // value to grab for event listener
   .classed("inactive", true)
-  .text("Large Avocado");
+  .text("Large Avocado" )
+  .attr("fill", "#9ACD32");
 
 // Appending y axis
 chartGroup.append("text")
@@ -173,7 +176,9 @@ chartGroup.append("text")
 .attr("dy", "1em")
 .classed("axis-text", true)
 .classed("active", true)
-.text("Average Price $");
+.text("Average Price $")
+.attr("fill", "#9ACD32");
+;
 
  // Setting updateToolTip function above csv import
  var circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
