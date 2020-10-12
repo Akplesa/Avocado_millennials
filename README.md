@@ -4,14 +4,14 @@ Us Millennials LOVE avocados! So we decided to analyze some avocado trends in th
 # Data information 
 The data was compiled into a csv file from kaggle https://www.kaggle.com/neuromusic/avocado-prices which was downloaded from the Hass avocado board website https://hassavocadoboard.com/happenings/. 
 #      METHODS
-#_______________________#
+#_______________________
 1. Cleaned the data using pandas in jupyter notebook.
 2. Used PostgresSQL as our database.
 3. Used FlaskSQLAlchemy to build an API. 
 4. Used JavaScript, HTML, and CSS in order to create are visualizations.
 
 # VIZUALIZATIONS 
-#----------------#
+#-----------------
  # D3. Scatterplot:
  The D3.Scatter plot allows you to transition between Small/Medium Hass Avocados, and Large Hass Avocados sold on the X axis and displays the Average Prices for these avocados on the y axis. Each circle on the scatter plot displays the location where the avocados where sold and how many. Using the scatterplot we can see which regions are more/less expensive and see a relationship between price and amount of avocados sold. 
  
