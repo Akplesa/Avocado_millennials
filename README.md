@@ -11,7 +11,7 @@ The data was compiled into a csv file from kaggle https://www.kaggle.com/neuromu
 
 #  VIZUALIZATIONS 
  # D3. Scatterplot:
- The D3.Scatter plot allows you to transition between Small/Medium Hass Avocados, and Large Hass Avocados sold on the X axis and displays the Average Prices for these avocados on the y axis. Each circle on the scatter plot displays the location where the avocados where sold and how many. Using the scatterplot we can see which regions are more/less expensive and see a relationship between price and amount of avocados sold. 
+ The D3.Scatter plot allows you to transition between Small/Medium Hass Avocados sold, and Large Hass Avocados sold on the X axis and displays the Average Prices for these avocados on the y axis. Each circle on the scatter plot displays the amount of avocados sold and their locations . Using this scatterplot we can see which regions are more/less expensive to shop for avocados and view a relationship between price and amount of avocados sold. 
  # Chart 
  The Bar Chart displays the number of avocados sold in the years of 2015, 2016,2017, and 2018. Each colored bar represents the size of an avocado. Using this vizualization we can see the relationships between the the amount of avocados sold v.s the size of the avocado. 
  # JSChart
