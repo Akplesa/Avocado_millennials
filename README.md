@@ -16,3 +16,10 @@ The data was compiled into a csv file from kaggle https://www.kaggle.com/neuromu
  The Bar Chart displays the number of avocados sold in the years of 2015, 2016,2017, and 2018. Each colored bar represents the size of an avocado. Using this vizualization we can see the relationships between the the amount of avocados sold v.s the size of the avocado. The information we can gather from this data is that large Hass avocados
  # JSChart
  Chart.js (https://www.chartjs.org/) is a JavaScript charting library which uses d3 (https://d3js.org/). This graph was made using Chart.js, titled "Hass Avocado Unit Sales Volume By Average Unit Sales Price in $USD, Year: 2015-2018. This graph shows three datasets of the data: Total Volume of all Hass avocados sold, total volume of small Hass avocados sold, and total volume of large Hass avocados sold. These datasets can be toggled to display against other datasets and the x and y ticks and scales will change dynamically. The data shows that at every price point the large sized Hass avocados sell for more than the small. The datasets show three major price points with similar sales volumes: $1.00, $1.25, $1.60. Prices vary based on world conditions, but the data shows paying over $1 for an avocado is not frugal.
+ # Project File Structure
+index.html
+assets/data -- All data should go here, .csv files, database files
+assets/js -- All javascript files should go here
+assets/css -- All css files should go here
+flask/ -- Flask app and index.html should go here 
+
